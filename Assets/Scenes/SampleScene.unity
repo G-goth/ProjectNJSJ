@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecbfef1dbf7a484594a7e61aaed81fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logStr: Hello World!!
 --- !u!4 &812894846
 Transform:
   m_ObjectHideFlags: 0
