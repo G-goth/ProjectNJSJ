@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class KeyBehaviour : MonoBehaviour
 {
+    [SerializeField]
+    private string logStr;
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Hello World!!");
+        Debug.Log(logStr);
     }
 
     // Update is called once per frame
