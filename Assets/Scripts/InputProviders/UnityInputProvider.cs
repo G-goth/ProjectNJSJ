@@ -10,7 +10,15 @@ namespace ProjectNJSJ.Assets.Scripts.InputProviders
         {
             return Input.GetKey(keyCode);
         }
-
+        // 指定されたキーが押されている間、常に値を返す
+        public bool GetKeyMoveRight()
+        {
+            return Input.GetKey(KeyCode.D);
+        }        // 指定されたキーが押されている間、常に値を返す
+        public bool GetKeyMoveLeft()
+        {
+            return Input.GetKey(KeyCode.A);
+        }
         // ジャンプボタン
         public bool GetJump()
         {
