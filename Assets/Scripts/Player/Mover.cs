@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using ProjectNJSJ.Assets.Scripts.ServiceLocators;
+using ProjectNJSJ.Assets.Scripts.Sprites;
 
 namespace ProjectNJSJ.Assets.Scripts.Player
 {
@@ -13,15 +13,17 @@ namespace ProjectNJSJ.Assets.Scripts.Player
     }
     public class Mover : MonoBehaviour
     {
-        [SerializeField] private ForceMode2D moveForceMode2D;
-        [SerializeField] private ForceMode moveForceMode;
-        [SerializeField] private ForceMode2D jumpForceMode2D;
-        [SerializeField] private ForceMode jumpForceMode;
-        [SerializeField] private DimensionsEnum dimensionsEnum;
-        [SerializeField] private float movePower;
-        [SerializeField] private float jumpPower;
-        private SpriteRenderer spriteRend;
-        private IInputProvider inputProvider;
+        private ForceMode moveForceMode = (default);
+        private ForceMode jumpForceMode = (default);
+        [SerializeField] private ForceMode2D moveForceMode2D = (default);
+        [SerializeField] private ForceMode2D jumpForceMode2D = (default);
+        [SerializeField] private DimensionsEnum dimensionsEnum = (default);
+        [SerializeField] private float movePower = (default);
+        [SerializeField] private float jumpPower = (default);
+        private SpriteRenderer spriteRend = (default);
+        private SpriteBehaviour spriteBehaviour = (default);
+        private IInputProvider inputProvider = (default);
+        private ISpriteProvider spriteProvider = (default);
 
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
@@ -37,6 +39,8 @@ namespace ProjectNJSJ.Assets.Scripts.Player
 
             // 登録された依存関係を使用する
             inputProvider = ServiceLocatorProvider.Instance.unityCurrent.Resolve<IInputProvider>();
+            spriteProvider = ServiceLocatorProvider.Instance.unitySpriteCurrent.Resolve<ISpriteProvider>();
+            spriteBehaviour = GetComponent<SpriteBehaviour>();
 
             // 右方向へ移動
             var keyMoverRight = this.UpdateAsObservable()
@@ -44,8 +48,8 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    Debug.Log("Right");
-                    CharacterMoverRight2D(KeyCode.D, achikita_Rigid);
+                    CharacterMoverRight2D(achikita_Rigid);
+                    spriteBehaviour.SwitchingSprite(CharaState.Run);
                 });
 
             // 左方向への移動
@@ -54,8 +58,8 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    Debug.Log("Left");
-                    CharacterMoverLeft2D(KeyCode.A, achikita_Rigid);
+                    CharacterMoverLeft2D(achikita_Rigid);
+                    spriteBehaviour.SwitchingSprite(CharaState.Run);
                 });
             
             // ジャンプ
@@ -64,7 +68,6 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    Debug.Log("Jump");
                     CharacterJump2D(achikita_Rigid);
                 });
 
@@ -72,56 +75,32 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             var crouching = this.UpdateAsObservable()
                 .Where(_ => inputProvider.GetKeyMoveUnder())
                 .Subscribe(_ => {
-                    Debug.Log("Crouching");
+                    spriteBehaviour.SwitchingSprite(CharaState.Crouching);
+                });
+
+            // スライディング
+            var sliding = this.UpdateAsObservable()
+                .Where(_ => inputProvider.GetKeyMoveLeft() || inputProvider.GetKeyMoveRight())
+                .Where(_ => inputProvider.GetKeyMoveUnder())
+                .AsUnitObservable()
+                .BatchFrame(0, FrameCountType.FixedUpdate)
+                .Subscribe(_ => {
+                    spriteBehaviour.SwitchingSprite(CharaState.Sliding);
                 });
         }
         
-        // キー操作による移動(2D)
-        private void CharacterMoverRight2D(KeyCode keyCode, Rigidbody2D rigid)
+        // キー操作による右移動(2D)
+        private void CharacterMoverRight2D(Rigidbody2D rigid)
         {
-            if(spriteRend.flipX == true)
-            {
-                // 何もしない
-            }
-            else
-            {
-                spriteRend.flipX = true;
-            }
-            if(KeyCode.D == keyCode)
-            {
-                rigid.AddForce(new Vector2(movePower, 0.0f), moveForceMode2D);
-            }
+            spriteProvider.IsFlippingSprite(spriteRend, true);
+            rigid.AddForce(new Vector2(movePower, 0.0f), moveForceMode2D);
         }
-        // キー操作による移動(2D)
-        private void CharacterMoverLeft2D(KeyCode keyCode, Rigidbody2D rigid)
+        // キー操作による左移動(2D)
+        private void CharacterMoverLeft2D(Rigidbody2D rigid)
         {
-            if(spriteRend.flipX == true)
-            {
-                spriteRend.flipX = false;
-            }
-            else
-            {
-                // 何もしない
-            }
-            if(KeyCode.A == keyCode)
-            {
-                rigid.AddForce(new Vector2(-movePower, 0.0f), moveForceMode2D);
-            }
+            spriteProvider.IsFlippingSprite(spriteRend, false);
+            rigid.AddForce(new Vector2(-movePower, 0.0f), moveForceMode2D);
         }
-        // // キー操作による移動(2D)
-        // private void CharacterMover2D(KeyCode keyCode, Rigidbody2D rigid)
-        // {
-        //     if(KeyCode.D == keyCode) rigid.AddForce(new Vector2(movePower, 0.0f), moveForceMode2D);
-
-        //     if(KeyCode.A == keyCode) rigid.AddForce(new Vector2(-movePower, 0.0f), moveForceMode2D);
-        // }
-        // // キー操作による移動(3D)
-        // private void CharacterMover3D(KeyCode keyCode, Rigidbody rigid)
-        // {
-        //     if(KeyCode.D == keyCode) rigid.AddForce(new Vector3(movePower, 0.0f, 0.0f), moveForceMode);
-
-        //     if(KeyCode.A == keyCode) rigid.AddForce(new Vector3(-movePower, 0.0f, 0.0f), moveForceMode);
-        // }
 
         // ジャンプ(2D)
         private void CharacterJump2D(Rigidbody2D rigid)
