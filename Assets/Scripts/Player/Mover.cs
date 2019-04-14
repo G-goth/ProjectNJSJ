@@ -12,12 +12,13 @@ namespace ProjectNJSJ.Assets.Scripts.Player
     }
     public class Mover : MonoBehaviour
     {
-        [SerializeField]
-        private DimensionsEnum dimensionsEnum;
-        [SerializeField]
-        private float movePower;
-        [SerializeField]
-        private float jumpPower;
+        [SerializeField] private ForceMode2D moveForceMode2D;
+        [SerializeField] private ForceMode moveForceMode;
+        [SerializeField] private ForceMode2D jumpForceMode2D;
+        [SerializeField] private ForceMode jumpForceMode;
+        [SerializeField] private DimensionsEnum dimensionsEnum;
+        [SerializeField] private float movePower;
+        [SerializeField] private float jumpPower;
         private IInputProvider inputProvider;
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
@@ -61,32 +62,38 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                     Debug.Log("Jump");
                     CharacterJump2D(achikita_Rigid);
                 });
+
+            // しゃがみ
+            var crouching = this.UpdateAsObservable()
+                .Subscribe(_ => {
+                    Debug.Log("Crouching");
+                });
         }
         
         // キー操作による移動(2D)
         private void CharacterMover2D(KeyCode keyCode, Rigidbody2D rigid)
         {
-            if(KeyCode.D == keyCode) rigid.AddForce(new Vector2(movePower, 0.0f));
+            if(KeyCode.D == keyCode) rigid.AddForce(new Vector2(movePower, 0.0f), moveForceMode2D);
 
-            if(KeyCode.A == keyCode) rigid.AddForce(new Vector2(-movePower, 0.0f));
+            if(KeyCode.A == keyCode) rigid.AddForce(new Vector2(-movePower, 0.0f), moveForceMode2D);
         }
         // キー操作による移動(3D)
         private void CharacterMover3D(KeyCode keyCode, Rigidbody rigid)
         {
-            if(KeyCode.D == keyCode) rigid.AddForce(new Vector3(movePower, 0.0f, 0.0f), ForceMode.VelocityChange);
+            if(KeyCode.D == keyCode) rigid.AddForce(new Vector3(movePower, 0.0f, 0.0f), moveForceMode);
 
-            if(KeyCode.A == keyCode) rigid.AddForce(new Vector3(-movePower, 0.0f, 0.0f), ForceMode.VelocityChange);
+            if(KeyCode.A == keyCode) rigid.AddForce(new Vector3(-movePower, 0.0f, 0.0f), moveForceMode);
         }
 
         // ジャンプ(2D)
         private void CharacterJump2D(Rigidbody2D rigid)
         {
-            rigid.AddForce(new Vector2(0.0f, jumpPower), ForceMode2D.Impulse);
+            rigid.AddForce(new Vector2(0.0f, jumpPower), jumpForceMode2D);
         }
         // ジャンプ(3D)
         private void CharacterJump3D(Rigidbody rigid)
         {
-            rigid.AddForce(new Vector3(0.0f, jumpPower, 0.0f), ForceMode.Impulse);
+            rigid.AddForce(new Vector3(0.0f, jumpPower, 0.0f), jumpForceMode);
         }
     }
 }

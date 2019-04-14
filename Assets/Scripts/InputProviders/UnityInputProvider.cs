@@ -10,14 +10,21 @@ namespace ProjectNJSJ.Assets.Scripts.InputProviders
         {
             return Input.GetKey(keyCode);
         }
-        // 指定されたキーが押されている間、常に値を返す
+
+        // 右方向へ移動
         public bool GetKeyMoveRight()
         {
             return Input.GetKey(KeyCode.D);
-        }        // 指定されたキーが押されている間、常に値を返す
+        }
+        // 左方向へ移動
         public bool GetKeyMoveLeft()
         {
             return Input.GetKey(KeyCode.A);
+        }
+        // しゃがみボタン
+        public bool GetKeyMoveUnder()
+        {
+            return Input.GetKey(KeyCode.S);
         }
         // ジャンプボタン
         public bool GetJump()
@@ -25,6 +32,12 @@ namespace ProjectNJSJ.Assets.Scripts.InputProviders
             return Input.GetKeyDown(KeyCode.Space);
         }
 
+        // スライディング
+        public bool GetKeySliding()
+        {
+            return Input.GetKeyDown(KeyCode.D) & Input.GetKeyDown(KeyCode.S);
+        }
+        // 移動
         public Vector3 GetMoveDirection()
         {
             return new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
