@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace AMARI.Assets.Scripts
+namespace ProjectNJSJ.Assets.Scripts
 {
     public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBehaviour<T>
     {
