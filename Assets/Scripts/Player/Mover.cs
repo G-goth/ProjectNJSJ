@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
@@ -19,7 +20,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         [SerializeField] private DimensionsEnum dimensionsEnum;
         [SerializeField] private float movePower;
         [SerializeField] private float jumpPower;
-        [SerializeField] private SpriteRenderer spriteRend;
+        private SpriteRenderer spriteRend;
         private IInputProvider inputProvider;
 
         /// <summary>
@@ -132,5 +133,9 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         {
             rigid.AddForce(new Vector3(0.0f, jumpPower, 0.0f), jumpForceMode);
         }
+
+        // スライディング
+        private void CharacterSliding2D(Rigidbody2D rigid)
+        {}
     }
 }

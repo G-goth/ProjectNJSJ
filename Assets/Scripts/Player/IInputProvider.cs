@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ProjectNJSJ.Assets.Scripts.Player
 {
-    interface IInputProvider
+    public interface IInputProvider
     {
         bool GetKeyMove(KeyCode keyCode);
         bool GetKeyMoveRight();
