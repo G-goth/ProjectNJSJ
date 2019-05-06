@@ -48,5 +48,15 @@ namespace ProjectNJSJ.Assets.Scripts.InputProviders
         {
             return new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         }
+        // Dキーリリースの判定
+        public bool GetKeyMoveRightRelease()
+        {
+            return Input.GetKeyUp(KeyCode.D);
+        }
+        // Aキーリリースの判定
+        public bool GetKeyMoveLeftRelease()
+        {
+            return Input.GetKeyUp(KeyCode.A);
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         bool GetKeyMoveUnder();
         bool GetKeySliding();
         bool GetJump();
+        bool GetKeyMoveRightRelease();
+        bool GetKeyMoveLeftRelease();
         float GetMoveDirectionHorizontal2D();
         Vector3 GetMoveDirection();
     }

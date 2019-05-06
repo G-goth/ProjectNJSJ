@@ -160,9 +160,9 @@ MonoBehaviour:
   moveForceMode2D: 0
   jumpForceMode2D: 1
   dimensionsEnum: 0
-  maxSpeedLimit: 2
+  maxSpeedLimit: 5
   movePower: 10
-  moveForceMultiplier: 50
+  dragPower: 20
   slidingMovePower: 1
   slidingMoveTime: 5
   jumpPower: 5

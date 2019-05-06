@@ -1,5 +1,6 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
@@ -23,6 +24,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         // 移動関係
         [SerializeField] private float maxSpeedLimit = (default);
         [SerializeField] private float movePower = (default);
+        [SerializeField] private float dragPower = (default);
         // スライディング関連
         private bool isSliding = (default);
         [SerializeField] private float slidingMovePower = (default);
@@ -60,6 +62,15 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .Subscribe(_ => {
                     CharacterMoverRight2D(achikita_Rigid);
                     spriteBehaviour.SwitchingSprite(CharaState.Run);
+                });
+            // Dキーをリリースしたときの挙動
+            var keyMoverRightUp = this.UpdateAsObservable()
+                .Where(_ => inputProvider.GetKeyMoveRightRelease())
+                .AsUnitObservable()
+                .BatchFrame(0, FrameCountType.FixedUpdate)
+                .Subscribe(_ => {
+                    string methodName = new Func<Rigidbody2D, IEnumerator>(CharaterMoverDeceleration2D).Method.Name;
+                    StartCoroutine(methodName, achikita_Rigid);
                 });
 
             // 左方向への移動
@@ -142,6 +153,17 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             }
         }
 
+        // 減速(コルーチン)
+        private IEnumerator CharaterMoverDeceleration2D(Rigidbody2D rigid)
+        {
+            while(rigid.velocity.magnitude > 0.0f)
+            {
+                rigid.drag = dragPower;
+                yield return new WaitForFixedUpdate();
+            }
+            rigid.drag = 0.0f;
+            yield return null;
+        }
         // スライディング(コルーチン)
         private IEnumerator CharacterSliding2DTypeCoroutine(Rigidbody2D rigid)
         {
