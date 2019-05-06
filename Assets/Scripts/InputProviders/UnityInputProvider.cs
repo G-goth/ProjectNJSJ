@@ -35,9 +35,15 @@ namespace ProjectNJSJ.Assets.Scripts.InputProviders
         // スライディング
         public bool GetKeySliding()
         {
-            return Input.GetKeyDown(KeyCode.D) & Input.GetKeyDown(KeyCode.S);
+            return Input.GetKeyDown(KeyCode.LeftShift);
+            // return Input.GetKeyDown(KeyCode.D) & Input.GetKeyDown(KeyCode.S);
         }
-        // 移動
+        // 移動(2D)
+        public float GetMoveDirectionHorizontal2D()
+        {
+            return Input.GetAxis("Horizontal");
+        }
+        // 移動(3D)
         public Vector3 GetMoveDirection()
         {
             return new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
