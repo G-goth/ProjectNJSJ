@@ -74,6 +74,15 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                     CharacterMoverLeft2D(achikita_Rigid);
                     spriteBehaviour.SwitchingSprite(CharaState.Run);
                 });
+            // Aキーを離したときの挙動
+            var keyMoverLeftUp = this.UpdateAsObservable()
+                .Where(_ => inputProvider.GetKeyMoveLeftRelease())
+                .AsUnitObservable()
+                .BatchFrame(0, FrameCountType.FixedUpdate)
+                .Subscribe(_ => {
+                    string methodName = new Func<Rigidbody2D, IEnumerator>(CharaterMoverDeceleration2D).Method.Name;
+                    StartCoroutine(methodName, achikita_Rigid);
+                });
             
             // ジャンプ
             var keyJump = this.UpdateAsObservable()
