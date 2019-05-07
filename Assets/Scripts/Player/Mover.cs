@@ -9,18 +9,10 @@ using ProjectNJSJ.Assets.Scripts.Sprites;
 
 namespace ProjectNJSJ.Assets.Scripts.Player
 {
-    enum DimensionsEnum
-    {
-        TwoDimension,
-        ThreeDimension
-    }
     public class Mover : MonoBehaviour
     {
-        private ForceMode moveForceMode = (default);
-        private ForceMode jumpForceMode = (default);
         [SerializeField] private ForceMode2D moveForceMode2D = (default);
         [SerializeField] private ForceMode2D jumpForceMode2D = (default);
-        [SerializeField] private DimensionsEnum dimensionsEnum = (default);
         // 移動関係
         [SerializeField] private float maxSpeedLimit = (default);
         [SerializeField] private float movePower = (default);
@@ -132,11 +124,6 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         private void CharacterJump2D(Rigidbody2D rigid)
         {
             rigid.AddForce(new Vector2(0.0f, jumpPower), jumpForceMode2D);
-        }
-        // ジャンプ(3D)
-        private void CharacterJump3D(Rigidbody rigid)
-        {
-            rigid.AddForce(new Vector3(0.0f, jumpPower, 0.0f), jumpForceMode);
         }
 
         // スライディング
