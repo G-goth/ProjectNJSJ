@@ -107,7 +107,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                     StartCoroutine("CharacterSliding2DTypeCoroutine", achikita_Rigid);
                 });
         }
-        
+
         // キー操作による右移動(2D)
         private void CharacterMoverRight2D(Rigidbody2D rigid)
         {

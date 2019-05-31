@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerChara
   - Enemy
+  - StatusChecker
   layers:
   - Default
   - TransparentFX
