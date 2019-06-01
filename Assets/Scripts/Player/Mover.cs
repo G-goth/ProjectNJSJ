@@ -17,6 +17,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         [SerializeField] private float maxSpeedLimit = (default);
         [SerializeField] private float movePower = (default);
         [SerializeField] private float dragPower = (default);
+        [SerializeField] private PlayerStatus playerStatus = (default);
         // スライディング関連
         private bool isSliding = (default);
         [SerializeField] private float slidingMovePower = (default);
@@ -52,6 +53,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
+                    Debug.Log(playerStatus.PlayerStatusLevelProp);
                     CharacterMoverRight2D(achikita_Rigid);
                     spriteBehaviour.SwitchingSprite(CharaState.Run);
                 });
@@ -61,8 +63,12 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    string methodName = new Func<Rigidbody2D, IEnumerator>(CharaterMoverDeceleration2D).Method.Name;
-                    StartCoroutine(methodName, achikita_Rigid);
+                    if(playerStatus.PlayerStatusLevelProp == PlayerStatusLevel.Ground)
+                    {
+                        // string methodName = new Func<Rigidbody2D, IEnumerator>(CharaterMoverDeceleration2D).Method.Name;
+                        // StartCoroutine(methodName, achikita_Rigid);
+                        CharaterMoverSuddenBraking2D(achikita_Rigid);
+                    }
                 });
 
             // 左方向への移動
@@ -80,8 +86,12 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    string methodName = new Func<Rigidbody2D, IEnumerator>(CharaterMoverDeceleration2D).Method.Name;
-                    StartCoroutine(methodName, achikita_Rigid);
+                    if (playerStatus.PlayerStatusLevelProp == PlayerStatusLevel.Ground)
+                    {
+                        // string methodName = new Func<Rigidbody2D, IEnumerator>(CharaterMoverDeceleration2D).Method.Name;
+                        // StartCoroutine(methodName, achikita_Rigid);
+                        CharaterMoverSuddenBraking2D(achikita_Rigid);
+                    }
                 });
             
             // ジャンプ
@@ -149,6 +159,11 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             }
         }
 
+        // 減速(velocityを直接操作)
+        private void CharaterMoverSuddenBraking2D(Rigidbody2D rigid)
+        {
+            rigid.velocity = new Vector2(0.0f, 0.0f);
+        }
         // 減速(コルーチン)
         private IEnumerator CharaterMoverDeceleration2D(Rigidbody2D rigid)
         {

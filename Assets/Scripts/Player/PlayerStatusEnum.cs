@@ -1,0 +1,13 @@
+namespace ProjectNJSJ.Assets.Scripts.Player
+{
+    public enum ResponsiveStickTag
+    {
+        PlayerChara =　0
+    }
+    public enum PlayerStatusLevel
+    {
+        Ground = 0,
+        Air = 1
+    }
+
+}
