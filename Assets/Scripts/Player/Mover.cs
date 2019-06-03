@@ -59,16 +59,14 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 });
             // Dキーをリリースしたときの挙動
             var keyMoverRightUp = this.UpdateAsObservable()
+                .Where(_ => playerStatus.PlayerStatusLevelProp == PlayerStatusLevel.Ground)
                 .Where(_ => inputProvider.GetKeyMoveRightRelease())
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    if(playerStatus.PlayerStatusLevelProp == PlayerStatusLevel.Ground)
-                    {
-                        // string methodName = new Func<Rigidbody2D, IEnumerator>(CharaterMoverDeceleration2D).Method.Name;
-                        // StartCoroutine(methodName, achikita_Rigid);
-                        CharaterMoverSuddenBraking2D(achikita_Rigid);
-                    }
+                    // string methodName = new Func<Rigidbody2D, IEnumerator>(CharaterMoverDeceleration2D).Method.Name;
+                    // StartCoroutine(methodName, achikita_Rigid);
+                    CharaterMoverSuddenBraking2D(achikita_Rigid);
                 });
 
             // 左方向への移動
@@ -82,16 +80,12 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 });
             // Aキーを離したときの挙動
             var keyMoverLeftUp = this.UpdateAsObservable()
+                .Where(_ => playerStatus.PlayerStatusLevelProp == PlayerStatusLevel.Ground)
                 .Where(_ => inputProvider.GetKeyMoveLeftRelease())
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    if (playerStatus.PlayerStatusLevelProp == PlayerStatusLevel.Ground)
-                    {
-                        // string methodName = new Func<Rigidbody2D, IEnumerator>(CharaterMoverDeceleration2D).Method.Name;
-                        // StartCoroutine(methodName, achikita_Rigid);
-                        CharaterMoverSuddenBraking2D(achikita_Rigid);
-                    }
+                    CharaterMoverSuddenBraking2D(achikita_Rigid);
                 });
             
             // ジャンプ
