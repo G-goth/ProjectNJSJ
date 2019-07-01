@@ -37,14 +37,13 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .Subscribe(trigger => {
                     statusLevel = PlayerStatusLevel.Ground;
                     PlayerStatusLevelProp = PlayerStatusLevel.Ground;
-                    // Debug.Log(statusLevel);
                 });
+            
             playerCheckerExit = playerStatusCheckObj.OnTriggerExit2DAsObservable()
                 .Where(trigger => trigger.transform.tag == Enum.GetName(typeof(ResponsiveStickTag), responsiveTag))
                 .Subscribe(trigger => {
                     statusLevel = PlayerStatusLevel.Air;
                     PlayerStatusLevelProp = PlayerStatusLevel.Air;
-                    // Debug.Log(statusLevel);
                 });
         }
     }
