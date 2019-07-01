@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5980365}
   - component: {fileID: 5980366}
+  - component: {fileID: 5980370}
   - component: {fileID: 5980368}
   - component: {fileID: 5980367}
   - component: {fileID: 5980369}
@@ -210,6 +211,18 @@ MonoBehaviour:
   playerStatusCheckObj: {fileID: 1445930818}
   moverObject: {fileID: 5980366}
   responsiveTag: 0
+--- !u!114 &5980370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5980364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1c82092612e4876abdd60031f60c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &89579021
 GameObject:
   m_ObjectHideFlags: 0
