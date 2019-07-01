@@ -118,7 +118,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             spriteProvider.IsFlippingSprite(spriteRend, true);
             if(rigid.velocity.magnitude < maxSpeedLimit)
             {
-                rigid.AddForce(rightVec2);
+                rigid.AddForce(rightVec2, moveForceMode2D);
             }
         }
         // キー操作による左移動(2D)
