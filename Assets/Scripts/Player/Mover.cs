@@ -135,7 +135,10 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         // ジャンプ(2D)
         private void CharacterJump2D(Rigidbody2D rigid)
         {
-            rigid.AddForce(new Vector2(0.0f, jumpPower), jumpForceMode2D);
+            if(playerStatus.PlayerStatusLevelProp == PlayerStatusLevel.Ground)
+            {
+                rigid.AddForce(new Vector2(0.0f, jumpPower), jumpForceMode2D);
+            }
         }
 
         // スライディング

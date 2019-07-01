@@ -20,6 +20,15 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             private set{ statusLevel = value; }
             get{ return statusLevel; }
         }
+
+        /// <summary>
+        /// Awake is called when the script instance is being loaded.
+        /// </summary>
+        void Awake()
+        {
+            PlayerStatusLevelProp = PlayerStatusLevel.Air;
+        }
+
         // Start is called before the first frame update
         void Start()
         {
