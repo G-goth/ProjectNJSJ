@@ -48,6 +48,12 @@ namespace ProjectNJSJ.Assets.Scripts.InputProviders
         {
             return new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         }
+        // 攻撃ボタンを押したときの判定
+        public bool GetAttackButton()
+        {
+            return Input.GetKeyDown(KeyCode.LeftControl);
+        }
+
         // Dキーリリースの判定
         public bool GetKeyMoveRightRelease()
         {
