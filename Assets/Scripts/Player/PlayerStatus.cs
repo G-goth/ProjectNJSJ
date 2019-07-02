@@ -57,6 +57,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             // 2段ジャンプ可能判定
             var airJump = this.UpdateAsObservable()
                 .Subscribe(_ => {
+                    PlayerAirJumpStateProp = airJumpState;
                 });
         }
     }
