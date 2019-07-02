@@ -211,6 +211,7 @@ MonoBehaviour:
   playerStatusCheckObj: {fileID: 1445930818}
   moverObject: {fileID: 5980366}
   responsiveTag: 0
+  airJumpState: 1
 --- !u!114 &5980370
 MonoBehaviour:
   m_ObjectHideFlags: 0
