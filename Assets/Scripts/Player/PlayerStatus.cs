@@ -43,7 +43,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .Subscribe(trigger => {
                     statusLevel = PlayerStatusLevel.Ground;
                     PlayerStatusLevelProp = PlayerStatusLevel.Ground;
-                    moverObject.jumpCount = 0;
+                    moverObject.JumpCountProp = 0;
                 });
             
             // 空中判定
