@@ -139,6 +139,10 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             {
                 rigid.AddForce(new Vector2(0.0f, jumpPower), jumpForceMode2D);
             }
+            else if(playerStatus.PlayerStatusLevelProp == PlayerStatusLevel.Air)
+            {
+                rigid.AddForce(new Vector2(0.0f, jumpPower), jumpForceMode2D);
+            }
         }
 
         // スライディング
