@@ -23,6 +23,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         [SerializeField] private int slidingMoveTime = (default);
         // ジャンプ関連
         [SerializeField] private float jumpPower = (default);
+        internal int jumpCount = 0;
         // スプライト関係
         private SpriteRenderer spriteRend = (default);
         private SpriteBehaviour spriteBehaviour = (default);
@@ -141,7 +142,11 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             }
             else if(playerStatus.PlayerStatusLevelProp == PlayerStatusLevel.Air)
             {
-                rigid.AddForce(new Vector2(0.0f, jumpPower), jumpForceMode2D);
+                if(jumpCount < (int)playerStatus.PlayerAirJumpStateProp)
+                {
+                    rigid.AddForce(new Vector2(0.0f, jumpPower), jumpForceMode2D);
+                    ++jumpCount;
+                }
             }
         }
 

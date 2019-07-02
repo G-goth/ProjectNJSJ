@@ -10,6 +10,8 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         [SerializeField] private GameObject playerStatusCheckObj;
         [SerializeField] private Mover moverObject;
         [SerializeField] private ResponsiveStickTag responsiveTag;
+        [SerializeField] private PlayerAirJumpCounter airJumpState = (default);
+        // [SerializeField] private int airJumpCounter = (default);
         private PlayerStatusLevel statusLevel;
         private IDisposable playerCheckerStay;
         private IDisposable playerCheckerExit;
@@ -19,7 +21,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             private set{ statusLevel = value; }
             get{ return statusLevel; }
         }
-        public PlayerJumpCountLevel PlayerAirJumpStateProp{ private set; get; }
+        public PlayerAirJumpCounter PlayerAirJumpStateProp{ private set; get; }
 
         /// <summary>
         /// Awake is called when the script instance is being loaded.
@@ -32,12 +34,16 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         // Start is called before the first frame update
         void Start()
         {
+            // 空中ジャンプ関連
+            PlayerAirJumpStateProp = airJumpState;
+
             // 地上判定
             playerCheckerStay = playerStatusCheckObj.OnTriggerStay2DAsObservable()
                 .Where(trigger => trigger.transform.tag == Enum.GetName(typeof(ResponsiveStickTag), responsiveTag))
                 .Subscribe(trigger => {
                     statusLevel = PlayerStatusLevel.Ground;
                     PlayerStatusLevelProp = PlayerStatusLevel.Ground;
+                    moverObject.jumpCount = 0;
                 });
             
             // 空中判定
@@ -50,7 +56,8 @@ namespace ProjectNJSJ.Assets.Scripts.Player
 
             // 2段ジャンプ可能判定
             var airJump = this.UpdateAsObservable()
-                .Subscribe(_ => {});
+                .Subscribe(_ => {
+                });
         }
     }
 }

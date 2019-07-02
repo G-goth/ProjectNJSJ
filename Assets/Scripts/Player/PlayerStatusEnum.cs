@@ -9,7 +9,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         Ground = 0,
         Air = 1
     }
-    public enum PlayerJumpCountLevel
+    public enum PlayerAirJumpCounter
     {
         first = 0,
         second = 1
