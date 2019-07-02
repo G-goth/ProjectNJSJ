@@ -7,6 +7,12 @@ namespace ProjectNJSJ.Assets.Scripts.SpriteProvider
     {
         private SpriteRenderer spriteRenderer;
 
+        // キャラクターのスプライトの反転の向きを返す
+        public bool isFlipSpriteDirection
+        {
+            get{ return spriteRenderer.flipX; }
+        }
+
         // キャラクターのスプライトレンダラーを取得
         public SpriteRenderer GetCharacterSprite(string spriteNameStr)
         {
