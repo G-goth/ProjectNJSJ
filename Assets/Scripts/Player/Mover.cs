@@ -58,7 +58,6 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    Debug.Log(playerStatus.PlayerStatusLevelProp);
                     CharacterMoverRight2D(achikita_Rigid);
                     spriteBehaviour.SwitchingSprite(CharaState.Run);
                 });
