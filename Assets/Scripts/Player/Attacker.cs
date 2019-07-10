@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UniRx;
@@ -30,7 +31,11 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                     Debug.Log("Attack!!");
                 });
         }
-
+        // プレイヤーキャラの攻撃持続時間コルーチン
+        private IEnumerator AttackDuration()
+        {
+            yield break;
+        }
         // 連続攻撃時にコンボの猶予時間以内にボタンが押されていればなにかするメソッド
         private void CommboDelayTime()
         {
