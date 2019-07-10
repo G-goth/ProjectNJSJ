@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -28,13 +29,19 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    Debug.Log("Attack!!");
+                    bool? result = null;
+                    StartCoroutine(AttackDuration(r => result = r, 3));
                 });
         }
         // プレイヤーキャラの攻撃持続時間コルーチン
-        private IEnumerator AttackDuration()
+        private IEnumerator AttackDuration(Action<bool> callBack, int attackFrame)
         {
-            yield break;
+            for(int i = 0; i < attackFrame; ++i)
+            {
+                yield return new WaitForSeconds(1.0f);
+            }
+            Debug.Log("Attack!!");
+            callBack(false);
         }
         // 連続攻撃時にコンボの猶予時間以内にボタンが押されていればなにかするメソッド
         private void CommboDelayTime()
