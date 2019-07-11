@@ -24,24 +24,25 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             inputProvider = ServiceLocatorProvider.Instance.unityCurrent.Resolve<IInputProvider>();
 
             // 近距離攻撃その1
+            bool? result = true;
             var shortRangeAttack = this.UpdateAsObservable()
-                .Where(_ => inputProvider.GetAttackButton())
+                .Where(_ => inputProvider.GetAttackButton() & result != false)
                 .AsUnitObservable()
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
-                    bool? result = null;
                     StartCoroutine(AttackDuration(r => result = r, 3));
                 });
         }
         // プレイヤーキャラの攻撃持続時間コルーチン
         private IEnumerator AttackDuration(Action<bool> callBack, int attackFrame)
         {
+            callBack(false);
             for(int i = 0; i < attackFrame; ++i)
             {
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForEndOfFrame();
             }
             Debug.Log("Attack!!");
-            callBack(false);
+            callBack(true);
         }
         // 連続攻撃時にコンボの猶予時間以内にボタンが押されていればなにかするメソッド
         private void CommboDelayTime()
