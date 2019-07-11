@@ -9,7 +9,7 @@ using ProjectNJSJ.Assets.Scripts.ServiceLocators;
 namespace ProjectNJSJ.Assets.Scripts.Player
 {
     // ダメージ関連の構造体
-    struct DamageRelatedValues
+    struct TechniqueRelatedValues
     {
         // ダメージ量
         int damageAmount;
@@ -24,8 +24,17 @@ namespace ProjectNJSJ.Assets.Scripts.Player
     }
     public class Attacker : MonoBehaviour
     {
+        // 攻撃当たり判定オブジェクトの取得(かなり雑に・・・)
+        [SerializeField] private GameObject rightAttackHitObject;
+        [SerializeField] private GameObject leftAttackHitObject;
+        [SerializeField] private ResponsiveStickTag responsiveTag;
+        private IDisposable rightAttack;
+        private IDisposable leftAttack;
+        // 攻撃ボタンの取得関連
         private IInputProvider inputProvider = (default);
+        // 攻撃をするキャラクターの取得関連
         private GameObject achikita;
+        private TechniqueRelatedValues damageValues = new TechniqueRelatedValues();
 
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
@@ -46,6 +55,13 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 .BatchFrame(0, FrameCountType.FixedUpdate)
                 .Subscribe(_ => {
                     StartCoroutine(AttackDuration(r => result = r, 3));
+                });
+
+            // 一旦、当たり判定が近づいたらそのゲームオブジェクトの名前を返すだけのやつ
+            rightAttack = rightAttackHitObject.OnTriggerStay2DAsObservable()
+                .Where(trigger => trigger.transform.tag == Enum.GetName(typeof(ResponsiveStickTag), responsiveTag))
+                .Subscribe(trigger => {
+                    Debug.Log(trigger.gameObject.name);
                 });
         }
         // プレイヤーキャラの攻撃持続時間コルーチン
