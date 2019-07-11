@@ -4,4 +4,9 @@
     {
         NormalEnemy = 0
     }
+    public enum WeakPointType
+    {
+        All = 0,
+        Fire = 1
+    }
 }

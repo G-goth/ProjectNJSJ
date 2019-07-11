@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 5980368}
   - component: {fileID: 5980367}
   - component: {fileID: 5980369}
+  - component: {fileID: 5980371}
   m_Layer: 0
   m_Name: ScriptAttachObject
   m_TagString: GameController
@@ -227,6 +228,18 @@ MonoBehaviour:
   rightAttackHitObject: {fileID: 2015997955}
   leftAttackHitObject: {fileID: 983982641}
   enemyTag: 0
+--- !u!114 &5980371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5980364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0af597ffd27c40e897f813ec68a6228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &89579021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,7 +1531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &983982642
 Transform:
   m_ObjectHideFlags: 0
@@ -2909,7 +2922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2015997956
 Transform:
   m_ObjectHideFlags: 0

@@ -34,11 +34,6 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         private SpriteBehaviour spriteBehaviour = (default);
         private IInputProvider inputProvider = (default);
         private ISpriteProvider spriteProvider = (default);
-        public ISpriteProvider SpriteRendererProp
-        {
-            get{ return spriteProvider; }
-            private set{ spriteProvider = value; }
-        }
 
         /// <summary>
         /// Start is called on the frame when a script is enabled just before

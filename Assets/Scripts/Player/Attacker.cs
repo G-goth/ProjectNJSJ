@@ -36,6 +36,8 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         // 攻撃をするキャラクターの取得関連
         private GameObject achikita;
         private TechniqueRelatedValues damageValues = new TechniqueRelatedValues();
+        // スプライト関連
+        private SpriteRenderer spriteRend = (default);
 
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
@@ -45,6 +47,8 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         {
             // 攻撃をさせるキャラクターをタグ検索
             achikita = GameObject.FindGameObjectWithTag("PlayerChara");
+            // キャラのスプライトを取得
+            spriteRend = achikita.GetComponent<SpriteRenderer>();
             // 登録された依存関係を使用する
             inputProvider = ServiceLocatorProvider.Instance.unityCurrent.Resolve<IInputProvider>();
 
@@ -69,11 +73,12 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         private IEnumerator AttackDuration(Action<bool> callBack, int attackFrame)
         {
             callBack(false);
+            rightAttackHitObject.SetActive(true);
             for(int i = 0; i < attackFrame; ++i)
             {
                 yield return new WaitForEndOfFrame();
             }
-            Debug.Log("Attack!!");
+            rightAttackHitObject.SetActive(false);
             callBack(true);
         }
         // 連続攻撃時にコンボの猶予時間以内にボタンが押されていればなにかするメソッド
@@ -84,5 +89,6 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         private void AttackCollisionFlipping()
         {
         }
+        // ヒットしたもののオブジェクト名を表示するメソッド
     }
 }
