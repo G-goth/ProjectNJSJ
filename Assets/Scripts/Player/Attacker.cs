@@ -73,12 +73,22 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         private IEnumerator AttackDuration(Action<bool> callBack, int attackFrame)
         {
             callBack(false);
-            rightAttackHitObject.SetActive(true);
+            // キャラクターの向いている方向によってアクティブにする当たり判定を変える
+            if(spriteRend.flipX)
+            {
+                rightAttackHitObject.SetActive(true);
+            }
+            else
+            {
+                leftAttackHitObject.SetActive(true);
+            }
+            
             for(int i = 0; i < attackFrame; ++i)
             {
                 yield return new WaitForEndOfFrame();
             }
             rightAttackHitObject.SetActive(false);
+            leftAttackHitObject.SetActive(false);
             callBack(true);
         }
         // 連続攻撃時にコンボの猶予時間以内にボタンが押されていればなにかするメソッド
