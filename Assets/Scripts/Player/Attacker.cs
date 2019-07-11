@@ -69,7 +69,12 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                     Debug.Log(trigger.gameObject.name);
                 });
         }
-        // プレイヤーキャラの攻撃持続時間コルーチン
+
+        /// <summary>
+        /// プレイヤーキャラの攻撃持続時間コルーチン
+        /// </summary>
+        /// <param name="callBack">コルーチンの結果コールバック</param>
+        /// <param name="attackFrame">持続フレーム数(int)</param>
         private IEnumerator AttackDuration(Action<bool> callBack, int attackFrame)
         {
             callBack(false);
@@ -93,6 +98,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
             rightAttackHitObject.SetActive(false);
             leftAttackHitObject.SetActive(false);
             callBack(true);
+            yield break;
         }
         // 連続攻撃時にコンボの猶予時間以内にボタンが押されていればなにかするメソッド
         private void CommboDelayTime()
