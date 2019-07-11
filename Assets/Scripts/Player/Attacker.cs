@@ -83,10 +83,13 @@ namespace ProjectNJSJ.Assets.Scripts.Player
                 leftAttackHitObject.SetActive(true);
             }
             
+            // 持続フレーム分ループを回す
             for(int i = 0; i < attackFrame; ++i)
             {
                 yield return new WaitForEndOfFrame();
             }
+
+            // 一旦、すべての攻撃判定のアクティブをオフにする
             rightAttackHitObject.SetActive(false);
             leftAttackHitObject.SetActive(false);
             callBack(true);
