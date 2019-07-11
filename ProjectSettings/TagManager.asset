@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerChara
-  - Enemy
   - StatusChecker
+  - NormalEnemy
   layers:
   - Default
   - TransparentFX

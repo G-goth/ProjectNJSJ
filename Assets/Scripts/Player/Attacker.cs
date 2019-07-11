@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using ProjectNJSJ.Assets.Scripts.Enemy;
 using ProjectNJSJ.Assets.Scripts.ServiceLocators;
 
 namespace ProjectNJSJ.Assets.Scripts.Player
@@ -27,7 +28,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
         // 攻撃当たり判定オブジェクトの取得(かなり雑に・・・)
         [SerializeField] private GameObject rightAttackHitObject;
         [SerializeField] private GameObject leftAttackHitObject;
-        [SerializeField] private ResponsiveStickTag responsiveTag;
+        [SerializeField] private ResponsiveStickTagOfEnemy enemyTag;
         private IDisposable rightAttack;
         private IDisposable leftAttack;
         // 攻撃ボタンの取得関連
@@ -59,7 +60,7 @@ namespace ProjectNJSJ.Assets.Scripts.Player
 
             // 一旦、当たり判定が近づいたらそのゲームオブジェクトの名前を返すだけのやつ
             rightAttack = rightAttackHitObject.OnTriggerStay2DAsObservable()
-                .Where(trigger => trigger.transform.tag == Enum.GetName(typeof(ResponsiveStickTag), responsiveTag))
+                .Where(trigger => trigger.transform.tag == Enum.GetName(typeof(ResponsiveStickTagOfEnemy), enemyTag))
                 .Subscribe(trigger => {
                     Debug.Log(trigger.gameObject.name);
                 });

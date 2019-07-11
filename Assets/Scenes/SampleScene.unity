@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightAttackHitObject: {fileID: 2015997955}
   leftAttackHitObject: {fileID: 983982641}
-  responsiveTag: 1
+  enemyTag: 0
 --- !u!1 &89579021
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 237042726}
   m_Layer: 0
   m_Name: test_enemy1
-  m_TagString: Enemy
+  m_TagString: NormalEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
